@@ -269,12 +269,27 @@ module plan(){
   translate([(l + offset_laser_part)/2, -(h + offset_laser_part)/2, 0])
   rotate([0,0,0])
   mirror([1,0,0])
-  side(l, h);
+  difference(){
+    side(l, h);
+
+    if(use_label_top){
+      translate([l/2-label_length/2,-h/2+thickness/2,0])
+      rotate([0,0,180])
+      notch(label_length, l_notch=min(length_notch, label_length/2), reverse=true);
+    }
+  }
 
   translate([(l + offset_laser_part)/2, (h + offset_laser_part)/2, 0])
   rotate([0,0,180])
   mirror([1,0,0])
-  side(l, h);
+  difference(){
+    side(l, h);
+    if(use_label_top){
+      translate([-l/2+label_length/2,-h/2+thickness/2,0])
+      rotate([0, 0, 0])
+      notch(label_length, l_notch=min(length_notch, label_length/2), reverse=true);
+    }
+  }
 
   translate([-(w + offset_laser_part)/2, (h+offset_laser_part)/2, 0])
   rotate([0,0,180])

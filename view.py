@@ -10,9 +10,6 @@ import math
 if not os.path.isdir("views"):
     os.mkdir("views")
 
-if not os.path.isdir("animation"):
-    os.mkdir("animation")
-
 DIST = 200
 H_VIEW = 70
 N_VIEW = 3
