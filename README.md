@@ -28,3 +28,6 @@ It is wanted to be compatible with [gridfinity](https://gridfinity.xyz/) and sup
 - Choice of assembly with the feet:
   - Simple gluing
   - Gluing with some connector piece to help align
+- Jig to help with gluing
+
+![Jig](img/jig.png)

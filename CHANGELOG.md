@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- Jig to help with gluing
 ### Changed
 ### Deprecated
 ### Removed
@@ -15,8 +16,3 @@
 - Generating customasible box and gridfinity box for laser cutter
 - Generating plans for the box
 - Adding label segment on top of box
-### Changed
-### Deprecated
-### Removed
-### Fixed
-### Security
