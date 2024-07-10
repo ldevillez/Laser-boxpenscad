@@ -8,6 +8,7 @@
 ### Deprecated
 ### Removed
 ### Fixed
+- Some Notch linked to the labels were too large
 ### Security
 
 ## V1.0.0

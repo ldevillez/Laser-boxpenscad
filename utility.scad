@@ -201,6 +201,7 @@ module label(){
 
     translate([-w/2+thickness/2, 0, 0])
     rotate([0,0,-90])
+    mirror([0,1,0])
     notch(label_length, l_notch=min(length_notch, label_length/2));
 
     translate([w/2-thickness/2, 0, 0])
@@ -244,6 +245,7 @@ module box(){
     if(use_label_top){
       translate([-l/2+label_length/2,-h/2+thickness/2,0])
       rotate([0, 0, 0])
+      mirror([0,1,0])
       notch(label_length, l_notch=min(length_notch, label_length/2), reverse=true);
     }
   }
@@ -287,6 +289,7 @@ module plan(){
     if(use_label_top){
       translate([-l/2+label_length/2,-h/2+thickness/2,0])
       rotate([0, 0, 0])
+      mirror([0,1,0])
       notch(label_length, l_notch=min(length_notch, label_length/2), reverse=true);
     }
   }
