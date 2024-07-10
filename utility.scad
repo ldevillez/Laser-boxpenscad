@@ -20,9 +20,9 @@ module panel(length, width){
   square([length, width], center=true);
 }
 
-module center_notch(length_side, reverse=true){
-  //_To have nice cut
-  offset_cut = 1;
+module center_notch(length_side, reverse=true, no_off_th=false){
+  // Offset needed for clear removal
+  off_th = no_off_th ? 0 : 1;
 
   //TODO remove small notch if the option is selected
 
@@ -31,28 +31,28 @@ module center_notch(length_side, reverse=true){
 
    intersection(){
     // To let material on each side the notchs are resctriced
-    translate([0, -offset_cut/2, 0])
-    square([length_side, thickness+offset_cut], center=true);
+    translate([0, -off_th/2, 0])
+    square([length_side, thickness+off_th], center=true);
     union(){
       if(reverse){
         for (i = [1:nx]){
-          translate([i*length_notch*2,-offset_cut/2,0])
-          square([length_notch,thickness+offset_cut],center=true);
+          translate([i*length_notch*2,-off_th/2,0])
+          square([length_notch,thickness+off_th],center=true);
 
-          translate([-i*length_notch*2,-offset_cut/2,0])
-          square([length_notch,thickness+offset_cut],center=true);
+          translate([-i*length_notch*2,-off_th/2,0])
+          square([length_notch,thickness+off_th],center=true);
         }
         // Central notch
-        translate([0, -offset_cut/2, 0])
-        square([length_notch,thickness+offset_cut],center=true);
+        translate([0, -off_th/2, 0])
+        square([length_notch,thickness+off_th],center=true);
       } else {
         union(){
           for (i = [1:nx]){
-            translate([(i-0.5)*length_notch*2,-offset_cut/2,0])
-            square([length_notch,thickness+offset_cut],center=true);
+            translate([(i-0.5)*length_notch*2,-off_th/2,0])
+            square([length_notch,thickness+off_th],center=true);
 
-            translate([-(i-0.5)*length_notch*2,-offset_cut/2,0])
-            square([length_notch,thickness+offset_cut],center=true);
+            translate([-(i-0.5)*length_notch*2,-off_th/2,0])
+            square([length_notch,thickness+off_th],center=true);
           }
         }
       }
@@ -60,10 +60,10 @@ module center_notch(length_side, reverse=true){
   }
 }
 
-module notch(length_side, l_notch, reverse=true){
+module notch(length_side, l_notch, reverse=true, no_off_th=false){
   l_n = is_undef(l_notch) ? length_notch : l_notch;
   // Offset needed for clear removal
-  off_th = 1;
+  off_th = no_off_th ? 0 :1;
 
   // Is the first element a notch or a tab
   off = reverse ? l_n : 0;
@@ -186,11 +186,44 @@ module side(length, height, with_top_notch=false){
       notch(height, reverse=true);
 
       if(with_top_notch){
-        translate([0, -height/2+thickness/2,0])
-        center_notch(length - 2 * thickness, reverse=true);
+        translate([0, -height/2+thickness/2+label_offset,0])
+        center_notch(length - 2 * thickness, reverse=true, no_off_th=no_off_th);
       }
     }
   }
+}
+
+module side_right(){
+  difference(){
+    side(l, h);
+    if(use_label_top){
+      translate([l/2-label_length/2,-h/2+thickness/2+label_offset,0])
+      rotate([0,0,180])
+      notch(label_length, l_notch=min(length_notch, label_length/2), reverse=true, no_off_th=no_off_th);
+    }
+  }
+}
+
+
+module side_left(){
+  difference(){
+    side(l, h);
+    if(use_label_top){
+      translate([-l/2+label_length/2,-h/2+thickness/2+label_offset,0])
+      rotate([0, 0, 0])
+      mirror([0,1,0])
+      notch(label_length, l_notch=min(length_notch, label_length/2), reverse=true, no_off_th=no_off_th);
+    }
+  }
+
+}
+
+module side_front(){
+  side(w, h, with_top_notch=use_label_top);
+}
+
+module side_back(){
+  side(w, h);
 }
 
 module label(){
@@ -220,45 +253,31 @@ module box(){
   translate([0, w/2-thickness/2,h/2-thickness/2])
   rotate([-90,0,0])
   linear_extrude(height=thickness,center=true)
-  difference(){
-    side(l, h);
+  side_right();
 
-    if(use_label_top){
-      translate([l/2-label_length/2,-h/2+thickness/2,0])
-      rotate([0,0,180])
-      notch(label_length, l_notch=min(length_notch, label_length/2), reverse=true);
-    }
-  }
 
   color("green")
   translate([-l/2 +thickness/2, 0,h/2-thickness/2])
   rotate([-90,0,90])
   linear_extrude(height=thickness,center=true)
-  side(w, h);
+  side_back();
 
   color("blue")
   translate([0, -w/2+thickness/2,h/2-thickness/2])
   rotate([-90,0,180])
   linear_extrude(height=thickness,center=true)
-  difference(){
-    side(l, h);
-    if(use_label_top){
-      translate([-l/2+label_length/2,-h/2+thickness/2,0])
-      rotate([0, 0, 0])
-      mirror([0,1,0])
-      notch(label_length, l_notch=min(length_notch, label_length/2), reverse=true);
-    }
-  }
+  side_left();
 
+  // Front
   color("green")
   translate([l/2 -thickness/2, 0,h/2-thickness/2])
   rotate([-90,0,270])
   linear_extrude(height=thickness,center=true)
-  side(w, h, with_top_notch=use_label_top);
+  side_front();
 
   if(use_label_top){
     color("tomato")
-    translate([l/2 -label_length/2, 0,h-thickness])
+    translate([l/2 -label_length/2, 0,h-thickness-label_offset])
     rotate([0,0,90])
     linear_extrude(height=thickness,center=true)
     label();
@@ -271,36 +290,20 @@ module plan(){
   translate([(l + offset_laser_part)/2, -(h + offset_laser_part)/2, 0])
   rotate([0,0,0])
   mirror([1,0,0])
-  difference(){
-    side(l, h);
-
-    if(use_label_top){
-      translate([l/2-label_length/2,-h/2+thickness/2,0])
-      rotate([0,0,180])
-      notch(label_length, l_notch=min(length_notch, label_length/2), reverse=true);
-    }
-  }
+  side_right();
 
   translate([(l + offset_laser_part)/2, (h + offset_laser_part)/2, 0])
   rotate([0,0,180])
   mirror([1,0,0])
-  difference(){
-    side(l, h);
-    if(use_label_top){
-      translate([-l/2+label_length/2,-h/2+thickness/2,0])
-      rotate([0, 0, 0])
-      mirror([0,1,0])
-      notch(label_length, l_notch=min(length_notch, label_length/2), reverse=true);
-    }
-  }
+  side_left();
 
   translate([-(w + offset_laser_part)/2, (h+offset_laser_part)/2, 0])
   rotate([0,0,180])
-  side(w, h);
+  side_front();
 
   translate([-(w + offset_laser_part)/2, -(h+offset_laser_part)/2, 0])
   rotate([0,0,0])
-  side(w, h);
+  side_back();
 
   translate([l + w/2 + offset_laser_part*3/2, 0, 0])
   rotate([0,0,90])

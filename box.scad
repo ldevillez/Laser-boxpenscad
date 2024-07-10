@@ -25,7 +25,7 @@ length_notch = 10;
 remove_small_notch=true;
 
 // Add a part to have a label on
-use_label_top=true;
+label_type = 1; // [0: No label, 1: Flat, 2: buried]
 // Label size
 label_length=12;
 
@@ -51,14 +51,16 @@ output_plan=false;
 // offset between the parts
 offset_laser_part=1;
 
-l_notch = remove_small_notch && length_notch < thickness ? thickness : length_notch;
 
 
 // ===== IMPLEMENTATION ===== //
 
+// Dimensions
 l = is_gridfinity ? gridx * g_unit_plan: length;
 w = is_gridfinity ? gridy * g_unit_plan: width;
 h = is_gridfinity ? gridz * g_unit_height - thickness: height;
+
+l_notch = remove_small_notch && length_notch < thickness ? thickness : length_notch;
 
 // Is it half unit or not
 g_is_half_unit = force_half_unit || (gridx * 10) % 10 == 5 ||  (gridy * 10) % 10 == 5;
@@ -69,6 +71,9 @@ g_used_unit = g_is_half_unit ? g_unit_plan /2 : g_unit_plan;
 g_nx = g_is_half_unit ? 2 * gridx : gridx;
 g_ny = g_is_half_unit ? 2 * gridy : gridy;
 
+use_label_top = label_type != 0;
+label_offset = label_type == 1 ? 0 : thickness;
+no_off_th = label_offset > 1e-4;
 
 // For Z we need to add locator elements
 // For simple glued system, should we suggest to add a jig (Laser, cut) ?

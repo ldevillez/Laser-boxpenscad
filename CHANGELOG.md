@@ -4,6 +4,7 @@
 
 ### Added
 - Jig to help with gluing
+- Buried label option
 ### Changed
 ### Deprecated
 ### Removed

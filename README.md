@@ -19,6 +19,7 @@ It is wanted to be compatible with [gridfinity](https://gridfinity.xyz/) and sup
 - Customisable material thickness
 - Customisable notch length
 - Label segment with adjustable length
+- Label can be removed, flush or buried
 - Removing notch less than material thickness
 - Complete 2D layout
 
