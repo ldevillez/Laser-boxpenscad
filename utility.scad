@@ -230,7 +230,7 @@ module label(){
   difference(){
     panel(w, label_length);
     translate([0,-label_length/2+thickness/2,0])
-    center_notch(width - 2 * thickness, reverse=false);
+    center_notch(w - 2 * thickness, reverse=false);
 
     translate([-w/2+thickness/2, 0, 0])
     rotate([0,0,-90])
@@ -346,7 +346,7 @@ module g_plan(){
 
 module g_grid_base(){
 
-  g_offset = thickness < g_thickness_theshold ? g_off_before_thickness : g_off_after_thickness;
+  g_offset = thickness > g_thickness_theshold || force_small_feet  ?  g_off_after_thickness: g_off_before_thickness;
   used_hole_unit = g_is_half_unit ? g_unit_plan/2 - g_offset : g_unit_plan - g_offset;
 
 

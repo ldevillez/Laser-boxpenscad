@@ -32,7 +32,6 @@ label_length=12;
 /* [Gridfinity Settings] */
 //Use gridfinity principle. Half unit are possible
 is_gridfinity=false;
-
 // number of bases along x-axis
 gridx = 2; // .5
 // number of bases along y-axis
@@ -41,6 +40,8 @@ gridy = 2; // .5
 gridz = 5;
 // Is half unit to be used
 force_half_unit=false;
+// Use small feet indepently of the thickness
+force_small_feet=false;
 // Type of attachement for the feet
 bottom_type = 0; // [0: Flat, 1: T-connector]
 

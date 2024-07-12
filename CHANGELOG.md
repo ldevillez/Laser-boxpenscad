@@ -3,10 +3,12 @@
 ## [Unreleased]
 
 ### Added
+- Adding the option to only use small feet
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
+- Notch of the label were not properly made on gridfinity box
 ### Security
 
 ## V1.1.0 2024/07/10
