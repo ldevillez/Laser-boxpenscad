@@ -243,6 +243,14 @@ module label(){
   }
 }
 
+module label_with_text(text_value){
+  difference(){
+    label();
+    translate([0, thickness/2, 0])
+    text(text_value, font=font, size=font_size, halign="center", valign="center");
+  }
+}
+
 module box(){
   color("tomato")
   translate([0,0,0])
@@ -280,7 +288,15 @@ module box(){
     translate([l/2 -label_length/2, 0,h-thickness-label_offset])
     rotate([0,0,90])
     linear_extrude(height=thickness,center=true)
-    label();
+    label_with_text(text_value);
+
+    // Just for nice display.
+    color("black")
+    translate([l/2 -label_length/2+0.1, 0,h-thickness+0.65-label_offset])
+    rotate([0,0,90])
+    translate([0, thickness/2, 0])
+    linear_extrude(height=thickness/2,center=true)
+    panel(w-2*thickness, label_length-thickness-0.1);
   }
 }
 
@@ -312,7 +328,7 @@ module plan(){
   if(use_label_top){
     translate([l + w + label_length/2 + 2*offset_laser_part, 0, 0])
     rotate([0,0,90])
-    label();
+    label_with_text(text_value);
   }
 }
 

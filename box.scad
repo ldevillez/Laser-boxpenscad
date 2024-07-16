@@ -8,6 +8,7 @@ include <standard.scad>
 $fa = 8;
 $fs = 0.25;
 
+
 /* [General Settings] */
 // length of the box
 length = 51.0;
@@ -20,14 +21,24 @@ thickness = 3;
 // length of a notch
 length_notch = 10;
 
-/* [Specific Settings] */
-// Avoid tabs < thickness
-remove_small_notch=true;
+/* [Manufacturing Settings] */
+// Arrange the parts for lasercutting
+output_plan=false;
+// offset between the parts
+offset_laser_part=1;
 
+/* [Label settings] */
 // Add a part to have a label on
 label_type = 1; // [0: No label, 1: Flat, 2: buried]
 // Label size
 label_length=12;
+// Label text
+text_value="∅5 x 45mm";
+// Font used
+font="Latin modern";
+// Font size
+font_size=4;
+
 
 /* [Gridfinity Settings] */
 //Use gridfinity principle. Half unit are possible
@@ -46,12 +57,9 @@ force_small_feet=false;
 bottom_type = 0; // [0: Flat, 1: T-connector]
 
 
-/* [Manufacturing Settings] */
-// Arrange the parts for lasercutting
-output_plan=false;
-// offset between the parts
-offset_laser_part=1;
-
+/* [Specific Settings] */
+// Avoid tabs < thickness
+remove_small_notch=true;
 
 
 // ===== IMPLEMENTATION ===== //
@@ -80,6 +88,8 @@ no_off_th = label_offset > 1e-4;
 // For simple glued system, should we suggest to add a jig (Laser, cut) ?
 // Improve arrangement plan ?
 // Check 4mm thickness
+
+
 
 if(output_plan){
   if(is_gridfinity){

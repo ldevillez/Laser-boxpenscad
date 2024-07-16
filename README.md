@@ -8,6 +8,7 @@ Laser-boxpenscad is a tool to generate box for laser cutting tools. It will crea
 
 It is wanted to be compatible with [gridfinity](https://gridfinity.xyz/) and support half-units (like my other project [eurogridfinity](https://github.com/ldevillez/eurogridfinity-openscad/tree/main))
 
+![label text](img/label_text.png)
 
 ![box](img/box.gif)
 
@@ -20,6 +21,7 @@ It is wanted to be compatible with [gridfinity](https://gridfinity.xyz/) and sup
 - Customisable notch length
 - Label segment with adjustable length
 - Label can be removed, flush or buried
+- Customisable text on the label
 - Removing notch less than material thickness
 - Complete 2D layout
 

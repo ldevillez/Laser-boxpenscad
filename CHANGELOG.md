@@ -4,6 +4,7 @@
 
 ### Added
 - Adding the option to only use small feet
+- Adding options to customise the text on the label
 ### Changed
 ### Deprecated
 ### Removed
@@ -16,12 +17,8 @@
 ### Added
 - Jig to help with gluing
 - Buried label option
-### Changed
-### Deprecated
-### Removed
 ### Fixed
 - Some Notch linked to the labels were too large
-### Security
 
 ## V1.0.0 2024/07/08
 
