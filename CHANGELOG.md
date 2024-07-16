@@ -3,14 +3,19 @@
 ## [Unreleased]
 
 ### Added
-- Adding the option to only use small feet
-- Adding options to customise the text on the label
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
-- Notch of the label were not properly made on gridfinity box
 ### Security
+
+## v1.2.0 2024/07/16
+
+### Added
+- Adding the option to only use small feet
+- Adding options to customise the text on the label
+### Fixed
+- Notch of the label were not properly made on gridfinity box
 
 ## V1.1.0 2024/07/10
 
